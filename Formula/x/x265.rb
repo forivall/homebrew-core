@@ -33,11 +33,13 @@ class X265 < Formula
       -DCMAKE_INSTALL_RPATH=#{rpath}
     ]
     args << "-DENABLE_SVE2=OFF" if OS.linux? && Hardware::CPU.arm?
+    args << "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" # FIXME: Workaround for CMake 4.
     high_bit_depth_args = %w[
       -DHIGH_BIT_DEPTH=ON -DEXPORT_C_API=OFF
       -DENABLE_SHARED=OFF -DENABLE_CLI=OFF
     ]
     high_bit_depth_args << "-DENABLE_SVE2=OFF" if OS.linux? && Hardware::CPU.arm?
+    high_bit_depth_args << "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" # FIXME: Workaround for CMake 4.
 
     (buildpath/"8bit").mkpath
     system "cmake", "-S", buildpath/"source", "-B", "10bit",
