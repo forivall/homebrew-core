@@ -6,6 +6,14 @@ class Ouch < Formula
   license "MIT"
   head "https://github.com/ouch-org/ouch.git", branch: "main"
 
+  # There can be a notable gap between when a version is tagged and a
+  # corresponding release is created, so we check the "latest" release instead
+  # of the Git tags.
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
     rebuild 1
     sha256 cellar: :any_skip_relocation, arm64_sequoia: "11795cbe9c38f30481e04282efceebe109de670689a346558585db7aa1ef0977"
